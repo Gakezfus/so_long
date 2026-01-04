@@ -115,4 +115,7 @@ void			ft_set_zero(int num, ...);
 // malloc fails. str_1 MUST be freeable.
 int				ft_merge_strings(char **str_1, char *str_2);
 
+// Returns an array of elements contained in the linked list that can be freed.
+void			*ft_t_list_to_array(t_list *list, size_t content_size);
+
 #endif

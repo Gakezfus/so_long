@@ -23,7 +23,7 @@ ft_putstr_fd.c ft_set_zero.c ft_split.c ft_strchr.c ft_strdup.c ft_striteri.c \
 ft_strjoin.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
 ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c \
 ft_utoa.c ft_utohextoa.c get_next_line.c get_next_line_utils.c \
-ft_merge_strings.c
+ft_merge_strings.c ft_t_list_to_array.c 
 
 OBJECTS = $(SOURCES:%.c=%.o)
 
