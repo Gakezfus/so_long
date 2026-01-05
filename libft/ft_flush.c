@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   ft_flush.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/05 14:38:51 by Elkan Choo       ###   ########.fr       */
+/*   Created: 2026/01/05 17:55:36 by Elkan Choo        #+#    #+#             */
+/*   Updated: 2026/01/05 17:56:58 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
-
-#include <stddef.h>
-
-// from check_path.c
-int	check_path(char **map, int width, int height, int cols);
-
-// from so_long_utils.c
-size_t ft_map_len(char *str);
-
-typedef struct coordinates
+void	ft_flush(int fd)
 {
-	int	x;
-	int	y;
-}	t_pos;
+	char *line;
 
-#endif
+	line = get_next_line(fd);
+	while (line)
+	{
+		line = get_next_line(fd);
+	}
+}

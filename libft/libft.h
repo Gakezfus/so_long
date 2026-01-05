@@ -116,6 +116,11 @@ void			ft_set_zero(int num, ...);
 int				ft_merge_strings(char **str_1, char *str_2);
 
 // Returns an array of elements contained in the linked list that can be freed.
+// So, if content points to an int, this will return an array of all ints in
+// the linked list
 void			*ft_t_list_to_array(t_list *list, size_t content_size);
+
+// Fully reads the file in the file descriptor, ensuring no leftovers remain.
+void			ft_flush(int fd);
 
 #endif

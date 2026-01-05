@@ -113,14 +113,14 @@ int	calc_leftover(char **buf, size_t *len,
 	if (*newline_index >= 0)
 	{
 		*buf = malloc(*newline_index + 2);
-		ft_strlcpy(*buf, *leftover, *newline_index + 2);
+		ft_GNL_strlcpy(*buf, *leftover, *newline_index + 2);
 		*len = ft_newline(*leftover + *newline_index + 1, 0);
 		if ((*leftover)[*newline_index + 1])
 		{
 			new = malloc(*len + 1);
 			if (new == NULL)
 				return (-1);
-			ft_strlcpy(new, *leftover + *newline_index + 1, *len + 1);
+			ft_GNL_strlcpy(new, *leftover + *newline_index + 1, *len + 1);
 		}
 		return (free(*leftover), *leftover = new, 1);
 	}
@@ -128,7 +128,7 @@ int	calc_leftover(char **buf, size_t *len,
 	*buf = malloc(*len + 1);
 	if (*buf == NULL)
 		return (-1);
-	ft_strlcpy(*buf, *leftover, *len + 1);
+	ft_GNL_strlcpy(*buf, *leftover, *len + 1);
 	return (free(*leftover), *leftover = NULL, 0);
 }
 
@@ -146,7 +146,7 @@ int	read_fd(char **buf, size_t *len, int *newline_index, int fd)
 		if (new == NULL)
 			return (-1);
 		if (*buf)
-			ft_strlcpy(new, *buf, *len + 1);
+			ft_GNL_strlcpy(new, *buf, *len + 1);
 		n_eof = read(fd, new + *len, BUFFER_SIZE);
 		if (n_eof < 0)
 			return (free(new), -1);
@@ -171,12 +171,12 @@ int	store_leftover(char **buf, size_t len,
 	*leftover = malloc(BUFFER_SIZE - newline_index + 1);
 	if (*leftover == NULL)
 		return (1);
-	ft_strlcpy(*leftover, *buf + len + newline_index + 1,
+	ft_GNL_strlcpy(*leftover, *buf + len + newline_index + 1,
 		BUFFER_SIZE - newline_index - 1 + 1);
 	new = malloc(len + newline_index + 1 + 1);
 	if (new == NULL)
 		return (1);
-	ft_strlcpy(new, *buf, len + newline_index + 1 + 1);
+	ft_GNL_strlcpy(new, *buf, len + newline_index + 1 + 1);
 	free(*buf);
 	*buf = new;
 	return (0);

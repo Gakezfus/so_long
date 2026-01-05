@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/04 22:38:16 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/05 19:15:37 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@
 t_pos	find_player(char **map, int width, int height);
 t_pos	find_exit(char **map, int width, int height);
 t_pos	*find_collectibles(char **map, int width, int height, int cols);
+int		search_path(char **map, t_pos player_pos, t_pos *collectibles);
 
 int	check_path(char **map, int width, int height, int cols)
 {
 	t_pos	player_pos;
 	t_pos	exit_pos;
 	t_pos	*collectibles;
+	int		path;
 
 	player_pos = find_player(map, width, height);
 	exit_pos = find_exit(map, width, height);
 	collectibles = find_collectibles(map, width, height, cols);
 	if (collectibles == NULL)
 		return (1);
-	// path_found(map, player_pos, exit_pos, collectibles);
-	// Tested and found the checks work, and the map data is correct
+	path = search_path(map, player_pos, collectibles);
+	ft_printf("if 0, path found: %i\n");
 	return (0);
 }
 
@@ -96,7 +98,7 @@ t_pos	*find_collectibles(char **map, int width, int height, int total_cols)
 	int			w_index;
 	t_pos		*col_pos;
 
-	col_pos = malloc(total_cols * sizeof(t_pos));
+	col_pos = malloc((total_cols + 1) * sizeof(t_pos));
 	if (col_pos == NULL)
 		return (NULL);
 	while (h_index < height)
@@ -114,5 +116,5 @@ t_pos	*find_collectibles(char **map, int width, int height, int total_cols)
 		}
 		h_index++;
 	}
-	return (col_pos);
+	return (col_pos[col_no].x = -1, col_pos);
 }

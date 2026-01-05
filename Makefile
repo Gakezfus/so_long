@@ -18,7 +18,7 @@ $(LIBFT):
 	make -C libft
 
 %.o: %.c
-	cc $(CFLAGS) -MMD -MP -c $< -o $@
+	cc $(CFLAGS) -MP -c $< -o $@
 
 -include $(SRC:%.c=%.d)
 
