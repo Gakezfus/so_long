@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/05 14:38:51 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/06 11:38:24 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 
 #include <stddef.h>
 
-// from check_path.c
-int	check_path(char **map, int width, int height, int cols);
-
-// from so_long_utils.c
-size_t ft_map_len(char *str);
-
 typedef struct coordinates
 {
 	int	x;
 	int	y;
 }	t_pos;
+
+// from check_path.c
+int		check_path(char **map, int width, int height, int cols);
+
+// from search_path.c
+int		search_path(char **map, t_pos player_pos, int cols);
+
+// from so_long_utils.c
+size_t	ft_map_len(char *str);
 
 #endif

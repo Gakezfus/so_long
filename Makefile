@@ -7,7 +7,7 @@ NAME = so_long
 
 LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft
+CFLAGS = -Wall -Wextra -Werror -Ilibft -I.mlx -g
 
 all: $(NAME)
 
@@ -18,7 +18,7 @@ $(LIBFT):
 	make -C libft
 
 %.o: %.c
-	cc $(CFLAGS) -MP -c $< -o $@
+	cc $(CFLAGS) -c $< -o $@
 
 -include $(SRC:%.c=%.d)
 

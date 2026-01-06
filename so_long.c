@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/04 22:37:55 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/06 12:29:02 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	validate_map(char **map, size_t width, int cols)
 		index++;
 	}
 	if (check_path(map, width, height, cols))
-		return (write(2, "Error\nPath not found\n", 1));
+		return (write(2, "Error\nPath not found\n", 21));
 	// TODO: Write a program to check the path!
 	return (0);
 }

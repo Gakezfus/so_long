@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flush.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 17:55:36 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/05 17:56:58 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/06 11:44:53 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 void	ft_flush(int fd)
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(fd);
 	while (line)
