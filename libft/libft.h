@@ -123,4 +123,7 @@ void			*ft_t_list_to_array(t_list *list, size_t content_size);
 // Fully reads the file in the file descriptor, ensuring no leftovers remain.
 void			ft_flush(int fd);
 
+// Fully frees an array[][]. Array MUST be NULL terminated
+void			ft_free_arrays(void **array);
+
 #endif

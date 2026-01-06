@@ -39,9 +39,7 @@ char	**ft_split(char const *str, char c)
 	int		str_count;
 
 	if (!str || !*str)
-	{
 		return (NULL);
-	}
 	str_count = ft_count_str(str, c);
 	to_return = malloc((str_count + 1) * sizeof(char *));
 	if (to_return == NULL)

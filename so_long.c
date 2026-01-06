@@ -6,12 +6,12 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/06 12:29:02 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/06 12:58:15 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include ".mlx/mlx.h"
-#include "libft/libft.h"
+#include "libft.h"
 #include "so_long.h"
 
 #include <stdlib.h>
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[])
 	if (file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4, ".ber", 4)
 		|| validate_input(fd, &map))
 		return (close(fd), 1);
+	ft_free_arrays((void **)map);
 	close(fd);
 	return (0);
 }
@@ -64,8 +65,8 @@ int	validate_input(int fd, char ***map)
 	}
 	*map = ft_split(map_str, '\n');
 	if (check_chars(line, 1, &cols) || !map || validate_map(*map, str_len, cols))
-		return (1);
-	return (0);
+		return (free(map_str), 1);
+	return (free(map_str), 0);
 }
 
 // If not final, adds up numbers of exits, players, and collectibles.
