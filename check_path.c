@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/06 12:27:11 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 12:28:58 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	check_path(char **map, int width, int height, int cols)
 
 	player_pos = find_player(map, width, height);
 	path = search_path(map, player_pos, cols);
-	ft_printf("if 0, path found: %i\n", path);
 	return (path);
 }
 

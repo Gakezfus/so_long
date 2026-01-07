@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/06 12:58:15 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 12:29:10 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char *argv[])
 		|| validate_input(fd, &map))
 		return (close(fd), 1);
 	ft_free_arrays((void **)map);
+	open_window(map);
 	close(fd);
 	return (0);
 }
