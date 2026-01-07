@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/07 12:32:12 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 17:35:46 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <stddef.h>
+# include <stddef.h>
 
 typedef struct coordinates
 {
@@ -31,6 +31,6 @@ int		search_path(char **map, t_pos player_pos, int cols);
 size_t	ft_map_len(char *str);
 
 // from ope_window.c
-int		open_window(char **map);
+int		open_window(char **map, int width, int height);
 
 #endif

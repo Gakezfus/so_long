@@ -42,7 +42,7 @@ int	ft_newline(char *str, int nl)
 	return (index);
 }
 
-void	ft_GNL_strlcpy(char *dst, const char *src, size_t size)
+void	ft_gnl_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	count;
 

@@ -6,13 +6,13 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:37:24 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/05 14:39:29 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/07 14:35:36 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-size_t ft_map_len(char *str)
+size_t	ft_map_len(char *str)
 {
 	size_t	count;
 

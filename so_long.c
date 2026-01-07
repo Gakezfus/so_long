@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/07 12:29:10 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 18:32:27 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char *argv[])
 	int		file_name_len;
 	char	**map;
 	int		fd;
+	int		index;
 
 	if (argc != 2)
 		return (1);
@@ -36,11 +37,15 @@ int	main(int argc, char *argv[])
 	if (file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4, ".ber", 4)
 		|| validate_input(fd, &map))
 		return (close(fd), 1);
-	ft_free_arrays((void **)map);
-	open_window(map);
 	close(fd);
-	return (0);
+	index = 0;
+	while (map[index])
+		index++;
+	if (open_window(map, ft_strlen(map[0]), index))
+		return (ft_free_arrays((void **)map), 1);
+	return (ft_free_arrays((void **)map), 0);
 }
+// Program is verified to be memory safe until the MinilibX
 
 int	validate_input(int fd, char ***map)
 {
@@ -49,24 +54,25 @@ int	validate_input(int fd, char ***map)
 	char	*map_str;
 	int		cols;
 
-	map_str = malloc(1);
+	map_str = ft_calloc(1, sizeof(char));
 	line = get_next_line(fd);
 	if (line == NULL || map_str == NULL)
 		return (1);
-	map_str[0] = '\0';
 	str_len = ft_map_len(line);
 	while (line)
 	{
 		if (!(str_len == ft_map_len(line)))
-			return (free(line), write(2, "Error\nMap not rectangle\n", 24), 1);
+			return (free(line), free(map_str),
+				write(2, "Error\nMap not rectangle\n", 24), 1);
 		if (check_chars(line, 0, &cols) || ft_merge_strings(&map_str, line))
-			return (free(line), 1);
+			return (free(map_str), free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	*map = ft_split(map_str, '\n');
-	if (check_chars(line, 1, &cols) || !map || validate_map(*map, str_len, cols))
-		return (free(map_str), 1);
+	if (check_chars(line, 1, &cols) || !map
+		|| validate_map(*map, str_len, cols))
+		return (free(map_str), ft_free_arrays((void **)(*map)), 1);
 	return (free(map_str), 0);
 }
 
@@ -117,7 +123,6 @@ int	validate_map(char **map, size_t width, int cols)
 		index++;
 	}
 	if (check_path(map, width, height, cols))
-		return (write(2, "Error\nPath not found\n", 21));
-	// TODO: Write a program to check the path!
+		return (write(2, "Error\nPath not found\n", 21), 1);
 	return (0);
 }

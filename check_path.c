@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/07 12:28:58 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 18:17:51 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,24 @@
 
 t_pos	find_player(char **map, int width, int height);
 
-int	check_path(char **map, int width, int height, int cols)
+int	check_path(char **og_map, int width, int height, int cols)
 {
 	t_pos	player_pos;
+	char	**dup_map;
 	int		path;
+	int		index;
 
-	player_pos = find_player(map, width, height);
-	path = search_path(map, player_pos, cols);
+	dup_map = malloc((height + 1) * sizeof(char *));
+	index = 0;
+	while (index < height)
+	{
+		dup_map[index] = ft_strdup(og_map[index]);
+		index++;
+	}
+	dup_map[index] = NULL;
+	player_pos = find_player(dup_map, width, height);
+	path = search_path(dup_map, player_pos, cols);
+	ft_free_arrays((void **)dup_map);
 	return (path);
 }
 

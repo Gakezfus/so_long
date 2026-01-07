@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:52:18 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/06 12:27:32 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 17:25:22 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 int		search_path(char **map, t_pos player_pos, int cols);
 int		explore(char **map, t_list **frontier, int *to_find);
-int		check_sides(char ***map, t_pos location, t_list **frontier, int *to_find);
+void	check_sides(char ***map, t_pos location,
+			t_list **frontier, int *to_find);
 t_pos	side(t_pos location, int dir);
 
 int	search_path(char **map, t_pos player_pos, int cols)
@@ -36,8 +37,7 @@ int	search_path(char **map, t_pos player_pos, int cols)
 	map[player_pos.y][player_pos.x] = '1';
 	while (to_find && frontier)
 	{
-		if (explore(map, &frontier, &to_find))
-			return (1);
+		explore(map, &frontier, &to_find);
 	}
 	return (ft_lstclear(&frontier, free), to_find);
 }
@@ -46,51 +46,45 @@ int	search_path(char **map, t_pos player_pos, int cols)
 // frontier.
 int	explore(char **map, t_list **frontier, int *to_find)
 {
-	t_pos 	location;
+	t_pos	location;
 	t_list	*tmp;
 
 	tmp = *frontier;
 	location = *(t_pos *)((*frontier)->content);
 	*frontier = (*frontier)->next;
 	ft_lstdelone(tmp, free);
-	return (check_sides(&map, location, frontier, to_find));
+	check_sides(&map, location, frontier, to_find);
+	return (0);
 }
 
 // Checks each side. Adds them to frontier if they are not explored or already
-// on the frontier. Changes value on map to '1' to mark that they have been placed
-// on the frontier.
-int	check_sides(char ***map, t_pos location, t_list **frontier, int *to_find)
+// on the frontier. Changes value on map to '1' to mark that they have been
+// placed on the frontier.
+void	check_sides(char ***map, t_pos location,
+			t_list **frontier, int *to_find)
 {
 	int		index;
-	t_pos	*to_check;
 	char	item;
-	t_list	*new;
+	t_pos	*to_check;
 
-	index = 0;
-	while (index < 4)
+	index = -1;
+	while (++index < 4)
 	{
 		to_check = malloc(sizeof(t_pos));
 		if (to_check == NULL)
-			return (1);
+			return ;
 		*to_check = side(location, index);
 		item = (*map)[to_check->y][to_check->x];
 		if (item != '1')
 		{
-			// ft_printf("%i", to_check->y);
-			// ft_printf("%i\n", to_check->x);
-			new = ft_lstnew(to_check);
-			if (new == NULL)
-				return (1);
-			ft_lstadd_back(frontier, new);
+			ft_lstadd_back(frontier, ft_lstnew(to_check));
 			if (item == 'E' || item == 'C')
 				(*to_find)--;
 			(*map)[to_check->y][to_check->x] = '1';
 		}
 		else
 			free(to_check);
-		index++;
 	}
-	return (0);
 }
 
 // When dir = 0, return the location one step East.

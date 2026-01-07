@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/07 12:28:21 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/07 18:37:28 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "so_long.h"
+#include "libft.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,12 +24,15 @@ typedef struct parameters
 	void	*mlx;
 	void	*window;
 	char	**map;
-} t_pars;
+	int		width;
+	int		height;
+}	t_pars;
 
-int		open_window(char **map);
+int		open_window(char **map, int width, int height);
 int		handle_keys(int keycode, void *p_ptr);
 int		handle_mouse(int button, int x, int y, void *p_ptr);
 int		close_window(void *p_ptr);
+void	setup(t_pars *param, int width, int height);
 
 // int	main(void)
 // {
@@ -37,28 +41,58 @@ int		close_window(void *p_ptr);
 // 	open_window(map);
 // }
 
-int	open_window(char **map)
+int	open_window(char **map, int width, int height)
 {
-	void 	*mlx;
+	void	*mlx;
 	void	*window;
 	t_pars	*param;
 
 	mlx = mlx_init();
-	if (mlx == NULL)
-		return (1);
-	window = mlx_new_window(mlx, 800, 600, "Window");
+	param = malloc(sizeof(t_pars));
+	if (mlx == NULL || param == NULL)
+		return (free(mlx), 1);
+	param->mlx = mlx;
+	param->map = map;
+	window = mlx_new_window(mlx, width * 50,
+			height * 50, "Window");
 	if (window == NULL)
 		return (1);
-	param = malloc(sizeof(t_pars));
-	param->mlx = mlx;
 	param->window = window;
-	param->map = map;
+	setup(param, width, height);
 	mlx_key_hook(window, handle_keys, (void *)param);
 	mlx_mouse_hook(window, handle_mouse, (void *)param);
 	mlx_hook(window, 17, 0, close_window, (void *)param);
 	mlx_loop(mlx);
-	free(param);
 	return (0);
+}
+
+void	setup(t_pars *param, int width, int height)
+{
+	int		index;
+	int		index_2;
+
+	param->width = width;
+	param->height = height;
+	index = 0;
+	while (index < param->height * 50)
+	{
+		index_2 = 0;
+		while (index_2 < param->width * 50)
+		{
+			if (param->map[index / 50][index_2 / 50] == '0')
+				mlx_pixel_put(param->mlx, param->window, index_2, index, 0x000077AA);
+			else if (param->map[index / 50][index_2 / 50] == '1')
+				mlx_pixel_put(param->mlx, param->window, index_2, index, 0x00555555);
+			else if (param->map[index / 50][index_2 / 50] == 'P')
+				mlx_pixel_put(param->mlx, param->window, index_2, index, 0x00999900);
+			else if (param->map[index / 50][index_2 / 50] == 'C')
+				mlx_pixel_put(param->mlx, param->window, index_2, index, 0x00005500);
+			else if (param->map[index / 50][index_2 / 50] == 'E')
+				mlx_pixel_put(param->mlx, param->window, index_2, index, 0x00550055);
+			index_2++;
+		}
+		index++;
+	}
 }
 
 int	handle_mouse(int button, int x, int y, void *p_ptr)
