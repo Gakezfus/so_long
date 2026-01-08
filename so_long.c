@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/07 18:32:27 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/08 22:35:48 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int	validate_input(int fd, char ***map);
+int	validate_input(int fd, char ***map, int *cols);
 int	check_chars(char *line, int final, int *cols);
 int	validate_map(char **map, size_t width, int cols);
 
@@ -29,30 +29,30 @@ int	main(int argc, char *argv[])
 	char	**map;
 	int		fd;
 	int		index;
+	int		cols;
 
 	if (argc != 2)
 		return (1);
 	fd = open(argv[1], O_RDONLY);
 	file_name_len = ft_strlen(argv[1]);
 	if (file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4, ".ber", 4)
-		|| validate_input(fd, &map))
+		|| validate_input(fd, &map, &cols))
 		return (close(fd), 1);
 	close(fd);
 	index = 0;
 	while (map[index])
 		index++;
-	if (open_window(map, ft_strlen(map[0]), index))
+	if (open_window(map, ft_strlen(map[0]), index, cols))
 		return (ft_free_arrays((void **)map), 1);
 	return (ft_free_arrays((void **)map), 0);
 }
 // Program is verified to be memory safe until the MinilibX
 
-int	validate_input(int fd, char ***map)
+int	validate_input(int fd, char ***map, int *cols)
 {
 	size_t	str_len;
 	char	*line;
 	char	*map_str;
-	int		cols;
 
 	map_str = ft_calloc(1, sizeof(char));
 	line = get_next_line(fd);
@@ -64,14 +64,14 @@ int	validate_input(int fd, char ***map)
 		if (!(str_len == ft_map_len(line)))
 			return (free(line), free(map_str),
 				write(2, "Error\nMap not rectangle\n", 24), 1);
-		if (check_chars(line, 0, &cols) || ft_merge_strings(&map_str, line))
+		if (check_chars(line, 0, cols) || ft_merge_strings(&map_str, line))
 			return (free(map_str), free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	*map = ft_split(map_str, '\n');
-	if (check_chars(line, 1, &cols) || !map
-		|| validate_map(*map, str_len, cols))
+	if (check_chars(line, 1, cols) || !map
+		|| validate_map(*map, str_len, *cols))
 		return (free(map_str), ft_free_arrays((void **)(*map)), 1);
 	return (free(map_str), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/08 01:36:39 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/09 02:14:55 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,11 @@
 
 //-I.mlx -L./.mlx -lmlx -lXext -lX11
 
-typedef struct img
-{
-	void	*name;
-	int		x;
-	int		y;
-}	t_img;
-
-typedef struct pareters
-{
-	void	*mlx;
-	void	*wind;
-	char	**map;
-	int		width;
-	int		height;
-	int		size;
-	t_img	*player;
-}	t_pars;
-
-int		open_window(char **map, int width, int height);
-int		handle_keys(int keycode, void *p_ptr);
-int		handle_mouse(int button, int x, int y, void *p_ptr);
-int		close_window(void *p_ptr);
-void	setup(t_pars *par, int width, int height);
+int		open_window(char **map, int width, int height, int cols);
+void	setup(t_pars *par, int width, int height, int cols);
+void	initial_window_colouring(t_pars *par);
+void	redraw_window(t_pars *p_ptr, int x, int y);
+int		redraw(void *p_ptr);
 
 // int	main(void)
 // {
@@ -50,7 +32,7 @@ void	setup(t_pars *par, int width, int height);
 // 	open_window(map);
 // }
 
-int	open_window(char **map, int width, int height)
+int	open_window(char **map, int width, int height, int cols)
 {
 	void	*mlx;
 	void	*window;
@@ -62,77 +44,95 @@ int	open_window(char **map, int width, int height)
 		return (free(mlx), 1);
 	par->mlx = mlx;
 	par->map = map;
-	par->size = 50;
-	window = mlx_new_window(mlx, width * par->size,
-			height * par->size, "Window");
-	if (window == NULL)
+	window = mlx_new_window(mlx, width * SIZE,
+			height * SIZE, "Window");
+	par->p_img = malloc(sizeof(t_img));
+	if (window == NULL || par->p_img == NULL)
 		return (1);
 	par->wind = window;
-	setup(par, width, height);
+	setup(par, width, height, cols);
 	mlx_key_hook(window, handle_keys, (void *)par);
-	mlx_mouse_hook(window, handle_mouse, (void *)par);
 	mlx_hook(window, 17, 0, close_window, (void *)par);
+	mlx_expose_hook(window, redraw, par);
 	mlx_loop(mlx);
 	return (0);
 }
 
-void	setup(t_pars *par, int width, int height)
+void	setup(t_pars *par, int width, int height, int cols)
 {
-	int		y;
-	int		x;
-
 	par->width = width;
 	par->height = height;
-	y = 0;
-	// Causes segfault
-	// par->player->name = mlx_xpm_file_to_image(par->mlx, "./images/Roomba.xpm", &par->player->x, &par->player->y);
-	while (y < par->height * par->size)
+	par->steps = 0;
+	par->p_pos.x = -1;
+	par->cols = cols;
+	par->p_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
+			"./images/Roomba-40px.xpm", &par->p_img->x, &par->p_img->y);
+	ft_strlcpy(par->steps_str, "steps: ", 8);
+	initial_window_colouring(par);
+	config_steps(par);
+}
+
+int	redraw(void *p_ptr)
+{
+	t_pars		*par;
+
+	par = (t_pars *)p_ptr;
+	par->redraw = 1;
+	redraw_window(par, -1, -1);
+	config_steps(par);
+	return (0);
+}
+
+void	redraw_window(t_pars *par, int x, int y)
+{
+	while (++y < par->height * SIZE)
 	{
-		x = 0;
-		while (x < par->width * par->size)
+		x = -1;
+		while (++x < par->width * SIZE)
 		{
-			if (par->map[y / par->size][x / par->size] == '0')
-				mlx_pixel_put(par->mlx, par->wind, x, y, 0x000077AA);
-			else if (par->map[y / par->size][x / par->size] == '1')
-				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00555555);
-			// else if (par->map[y / par->size][x / par->size] == 'P')
-			// 	mlx_put_image_to_window(par->mlx, par->wind, player, x, y);
-			else if (par->map[y / par->size][x / par->size] == 'C')
+			if (par->map[y / SIZE][x / SIZE] == '0')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00FFFFFF);
+			else if (par->map[y / SIZE][x / SIZE] == '1')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00444444);
+			else if (par->redraw && par->map[y / SIZE][x / SIZE] == 'P')
+			{
+				mlx_put_image_to_window(par->mlx, par->wind,
+					par->p_img->img_ptr, x, y);
+				par->redraw = 0;
+			}
+			else if (par->map[y / SIZE][x / SIZE] == 'C')
 				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00005500);
-			else if (par->map[y / par->size][x / par->size] == 'E')
+			else if (par->map[y / SIZE][x / SIZE] == 'E')
 				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00550055);
-			x++;
 		}
-		y++;
 	}
 }
 
-int	handle_mouse(int button, int x, int y, void *p_ptr)
+void	initial_window_colouring(t_pars *par)
 {
-	(void) button;
-	(void) p_ptr;
-	printf("Pos: %i, %i\n", x, y);
-	return (0);
-}
+	int			x;
+	static int	y = -1;
 
-int	close_window(void *p_ptr)
-{
-	t_pars	*par;
-
-	par = (t_pars *)p_ptr;
-	mlx_destroy_window(par->mlx, par->wind);
-	exit(0);
-}
-
-int	handle_keys(int keycode, void *p_ptr)
-{
-	t_pars	*par;
-
-	par = (t_pars *)p_ptr;
-	if (keycode == 0xff1b)
+	while (++y < par->height * SIZE)
 	{
-		mlx_destroy_window(par->mlx, par->wind);
-		exit(0);
+		x = -1;
+		while (++x < par->width * SIZE)
+		{
+			if (par->map[y / SIZE][x / SIZE] == '0')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00FFFFFF);
+			else if (par->map[y / SIZE][x / SIZE] == '1')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00444444);
+			else if (par->p_pos.x < 0 && par->map[y / SIZE][x / SIZE] == 'P')
+			{
+				mlx_put_image_to_window(par->mlx, par->wind,
+					par->p_img->img_ptr, x, y);
+				par->p_pos.x = x / SIZE;
+				par->p_pos.y = y / SIZE;
+			}
+			else if (par->map[y / SIZE][x / SIZE] == 'C')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00005500);
+			else if (par->map[y / SIZE][x / SIZE] == 'E')
+				mlx_pixel_put(par->mlx, par->wind, x, y, 0x00550055);
+		}
 	}
-	return (0);
 }
