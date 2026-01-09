@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/09 01:53:23 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/09 18:48:19 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,22 @@ typedef struct img
 
 typedef struct parameters
 {
-	void	*mlx;
-	void	*wind;
-	char	**map;
-	int		width;
-	int		height;
-	int		steps;
-	char	steps_str[17];
-	int		cols;
-	int		redraw;
-	t_img	*p_img;
-	t_pos	p_pos;
+	void			*mlx;
+	void			*wind;
+	char			**map;
+	int				width;
+	int				height;
+	int				steps;
+	char			steps_str[17];
+	int				cols;
+	int				redraw;
+	unsigned char	p_rot;
+	t_img			*p_img;
+	t_img			*w_img;
+	t_img			*s_img;
+	t_img			*c_img;
+	t_img			*e_img;
+	t_pos			p_pos;
 }	t_pars;
 
 // from check_path.c
@@ -61,10 +66,14 @@ int		open_window(char **map, int width, int height, int cols);
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
 int		handle_mouse(int button, int x, int y, void *p_ptr);
-void	move_player(t_pars *par, int move_no);
+void	move_player(t_pars *par, unsigned char move_no);
 void	colour_square(int x, int y, t_pars *par, int colour);
 
 // from mlx_utlis_2.c
 void	config_steps(t_pars *par);
+void	set_pos(t_pos *pos, int x, int y);
+
+// from player_rotation.c
+void	player_rotation(t_pars *par, unsigned char move_no);
 
 #endif

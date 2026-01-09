@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 01:48:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/09 02:15:33 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/09 15:46:56 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 void	config_steps(t_pars *par)
 {
-	ft_strlcpy(par->steps_str + 7, ft_itoa(par->steps), 11);
+	char	*num = ft_itoa(par->steps);
+	ft_strlcpy(par->steps_str + 7, num, 11);
+	free(num);
 	colour_square(par->width / 2 - 1, 0, par, 0x00444444);
 	colour_square(par->width / 2, 0, par, 0x00444444);
 	colour_square(par->width / 2 + 1, 0, par, 0x00444444);

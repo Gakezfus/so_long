@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/09 02:04:22 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/09 21:41:24 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
 int		handle_mouse(int button, int x, int y, void *p_ptr);
-void	move_player(t_pars *par, int move_no);
+void	move_player(t_pars *par, unsigned char move_no);
 void	colour_square(int x, int y, t_pars *par, int colour);
 
 int	handle_keys(int keycode, void *p_ptr)
@@ -57,12 +57,14 @@ int	close_window(void *p_ptr)
 // move_no == 2 moves left, move_no == 3 moves up
 // Second part checks if the player tries to go to the exit before it's
 // collecting all collectibles.
-void	move_player(t_pars *par, int move_no)
+void	move_player(t_pars *par, unsigned char move_no)
 {
 	t_pos	new;
 
-	new.x = par->p_pos.x + !(move_no % 2) * (1 - move_no);
-	new.y = par->p_pos.y + (move_no % 2) * (2 - move_no);
+	new.x = par->p_pos.x + (move_no == 0) - (move_no == 2);
+	new.y = par->p_pos.y + (move_no == 1) - (move_no == 3);
+	if (par->p_rot != move_no)
+		player_rotation(par, move_no);
 	if (par->map[new.y][new.x] == '1' ||
 			(par->map[new.y][new.x] == 'E' && par->cols))
 		return ;
@@ -70,13 +72,15 @@ void	move_player(t_pars *par, int move_no)
 	{
 		if (par->map[new.y][new.x] == 'C')
 			par->cols--;
+		if (par->map[new.y][new.x] == 'E')
+			exit (0);
 		par->map[new.y][new.x] = 'P';
+		par->map[par->p_pos.y][par->p_pos.x] = '0';
+		// Where the animation goes
 		mlx_put_image_to_window(par->mlx, par->wind,
 			par->p_img->img_ptr, new.x * SIZE, new.y * SIZE);
-		par->map[par->p_pos.y][par->p_pos.x] = '0';
 		colour_square(par->p_pos.x, par->p_pos.y, par, 0x00FFFFFF);
-		par->p_pos.x = new.x;
-		par->p_pos.y = new.y;
+		set_pos(&(par->p_pos), new.x, new.y);
 		par->steps++;
 		config_steps(par);
 	}

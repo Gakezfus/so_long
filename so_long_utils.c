@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 14:37:24 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/07 14:35:36 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/09 18:50:03 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
+
+#include "so_long.h"
 
 size_t	ft_map_len(char *str)
 {
@@ -20,4 +22,10 @@ size_t	ft_map_len(char *str)
 	while (str[count] != '\n' && str[count])
 		count++;
 	return (count);
+}
+
+void	set_pos(t_pos *pos, int x, int y)
+{
+	pos->x = x;
+	pos->y = y;
 }
