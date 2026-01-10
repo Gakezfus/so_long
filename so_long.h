@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/09 18:48:19 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/10 13:06:13 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	colour_square(int x, int y, t_pars *par, int colour);
 // from mlx_utlis_2.c
 void	config_steps(t_pars *par);
 void	set_pos(t_pos *pos, int x, int y);
+void	delay(long miliseconds);
 
 // from player_rotation.c
 void	player_rotation(t_pars *par, unsigned char move_no);
