@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/07 18:17:51 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/10 16:41:02 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	check_path(char **og_map, int width, int height, int cols)
 	int		index;
 
 	dup_map = malloc((height + 1) * sizeof(char *));
+	if (dup_map == NULL)
+		return (1);
 	index = 0;
 	while (index < height)
 	{

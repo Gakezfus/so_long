@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/09 18:48:25 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/10 16:31:08 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	validate_input(int fd, char ***map, int *cols)
 	map_str = ft_calloc(1, sizeof(char));
 	line = get_next_line(fd);
 	if (line == NULL || map_str == NULL)
-		return (1);
+		return (free(line), free(map_str), 1);
 	str_len = ft_map_len(line);
 	while (line)
 	{

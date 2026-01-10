@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 13:06:13 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/10 15:32:04 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		search_path(char **map, t_pos p_pos, int cols);
 
 // from so_long_utils.c
 size_t	ft_map_len(char *str);
+void	set_pos(t_pos *pos, int x, int y);
 
 // from open_window.c
 int		open_window(char **map, int width, int height, int cols);
@@ -71,8 +72,8 @@ void	colour_square(int x, int y, t_pars *par, int colour);
 
 // from mlx_utlis_2.c
 void	config_steps(t_pars *par);
-void	set_pos(t_pos *pos, int x, int y);
-void	delay(long miliseconds);
+void	delay(long miliseconds, t_pars *par);
+void	end_program(t_pars *par, int code);
 
 // from player_rotation.c
 void	player_rotation(t_pars *par, unsigned char move_no);

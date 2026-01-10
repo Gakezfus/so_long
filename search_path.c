@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:52:18 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/07 17:25:22 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/10 16:28:06 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	search_path(char **map, t_pos player_pos, int cols)
 	to_find = 1 + cols;
 	new = malloc(sizeof(t_pos));
 	if (new == NULL)
-		return (0);
+		return (1);
 	new->x = player_pos.x;
 	new->y = player_pos.y;
 	frontier = ft_lstnew(new);

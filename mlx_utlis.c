@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 13:05:42 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/10 16:20:50 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	handle_keys(int keycode, void *p_ptr)
 	par = (t_pars *)p_ptr;
 	if (keycode == 0xff1b)
 	{
-		mlx_destroy_window(par->mlx, par->wind);
-		exit(0);
+		end_program(par, 0);
 	}
 	if (keycode == 0x64 || keycode == 0xff53)
 		move_player(par, 0);
@@ -49,14 +48,14 @@ int	close_window(void *p_ptr)
 	t_pars	*par;
 
 	par = (t_pars *)p_ptr;
-	mlx_destroy_window(par->mlx, par->wind);
-	exit(0);
+	end_program(par, 0);
+	return (0);
 }
 
 // move_no == 0 moves right, move_no == 1 moves down,
 // move_no == 2 moves left, move_no == 3 moves up
 // Second part checks if the player tries to go to the exit before it's
-// collecting all collectibles.
+// collected all collectibles.
 void	move_player(t_pars *par, unsigned char move_no)
 {
 	t_pos	new;
@@ -73,7 +72,7 @@ void	move_player(t_pars *par, unsigned char move_no)
 		if (par->map[new.y][new.x] == 'C')
 			par->cols--;
 		if (par->map[new.y][new.x] == 'E')
-			exit (0);
+			end_program(par, 0);
 		par->map[new.y][new.x] = 'P';
 		par->map[par->p_pos.y][par->p_pos.x] = '0';
 		// Where the animation goes
