@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 16:26:12 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 01:10:44 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,16 @@ int	open_window(char **map, int width, int height, int cols)
 	return (0);
 }
 
+// Collectible is picture of: Mode Angel Dust Roll On Glitter HYPERSONIC
+// Holographic Blue Sparkling High Performance 3D Loose Glitters for
+// Face and Body, Spill Proof Bottle, Cruelty Free, Vegan, Made in NY USA
+
+// Wall is picture of: LG Marble/Stone Real Concrete (Dark Gray) ML61
+
+// Exit is picture from: <a href="https://www.flaticon.com/free-icons/letter-e"
+// title="letter e icons">Letter e icons created by Hight Quality Icons -
+// Flaticon</a>
+
 void	setup(t_pars *par, int cols)
 {
 	par->steps = 0;
@@ -69,8 +79,9 @@ void	setup(t_pars *par, int cols)
 	par->w_img = ft_calloc(1, sizeof(t_img));
 	par->c_img = ft_calloc(1, sizeof(t_img));
 	par->e_img = ft_calloc(1, sizeof(t_img));
+	par->a_img = ft_calloc(1, sizeof(t_img));
 	if (!par->p_img || !par->s_img || !par->w_img
-		|| !par->c_img || !par->e_img)
+		|| !par->c_img || !par->e_img || !par->a_img)
 		end_program(par, 1);
 	par->p_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
 			"./images/player/player_r24.xpm", &par->p_img->x, &par->p_img->y);

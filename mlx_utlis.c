@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 16:20:50 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 00:22:51 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,9 @@ void	move_player(t_pars *par, unsigned char move_no)
 			end_program(par, 0);
 		par->map[new.y][new.x] = 'P';
 		par->map[par->p_pos.y][par->p_pos.x] = '0';
-		// Where the animation goes
-		mlx_put_image_to_window(par->mlx, par->wind,
-			par->p_img->img_ptr, new.x * SIZE, new.y * SIZE);
-		colour_square(par->p_pos.x, par->p_pos.y, par, 0x00FFFFFF);
+		move(move_no, par);
 		set_pos(&(par->p_pos), new.x, new.y);
 		par->steps++;
 		config_steps(par);
-	}
-}
-
-void	colour_square(int x, int y, t_pars *par, int colour)
-{
-	int	img_x;
-	int	img_y;
-
-	img_x = x * SIZE;
-	while (img_x / SIZE == x)
-	{
-		img_y = y * SIZE;
-		while (img_y / SIZE == y)
-		{
-			mlx_pixel_put(par->mlx, par->wind, img_x, img_y, colour);
-			img_y++;
-		}
-		img_x++;
 	}
 }

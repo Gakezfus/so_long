@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 01:48:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 16:16:35 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 00:22:48 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ void	config_steps(t_pars *par)
 		end_program(par, 1);
 	ft_strlcpy(par->steps_str + 7, num, 11);
 	free(num);
-	colour_square(par->width / 2 - 1, 0, par, 0x00444444);
-	colour_square(par->width / 2, 0, par, 0x00444444);
-	colour_square(par->width / 2 + 1, 0, par, 0x00444444);
-	colour_square(par->width / 2 + 2, 0, par, 0x00444444);
+	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+		(par->width / 2 - 1) * SIZE, 0);
+	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+		(par->width / 2) * SIZE, 0);
+	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+		(par->width / 2 + 1) * SIZE, 0);
+	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+		(par->width / 2 + 2) * SIZE, 0);
 	mlx_string_put(par->mlx, par->wind, par->width * SIZE / 2 - 28,
 		23, 0x00FFFF00, par->steps_str);
 }
@@ -57,7 +61,7 @@ void	delay(long miliseconds, t_pars *par)
 
 void	end_program(t_pars *par, int code)
 {
-	t_img	*images[5];
+	t_img	*images[6];
 	int		index;
 
 	index = 0;
@@ -66,6 +70,7 @@ void	end_program(t_pars *par, int code)
 	images[2] = par->s_img;
 	images[3] = par->c_img;
 	images[4] = par->e_img;
+	images[5] = par->a_img;
 	while (index < 5)
 	{
 		if (images[index]->img_ptr)

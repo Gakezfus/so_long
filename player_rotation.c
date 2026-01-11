@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:26:18 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 17:30:43 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 00:01:56 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		calc_dir(unsigned char og, unsigned char new);
 void	get_filename(char *filename, int num);
 void	player_rotation(t_pars *par, unsigned char move_no);
 
+// The loop relies on unsigned char overflow to be able to move in either
+// direction
 void	player_rotation(t_pars *par, unsigned char move_no)
 {
 	char			filename[31];
@@ -35,7 +37,7 @@ void	player_rotation(t_pars *par, unsigned char move_no)
 		mlx_destroy_image(par->mlx, par->p_img->img_ptr);
 		par->p_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
 				filename, &par->p_img->x, &par->p_img->y);
-		delay(12000L, par);
+		delay(15000L, par);
 		mlx_put_image_to_window(par->mlx, par->wind,
 			par->p_img->img_ptr, par->p_pos.x * SIZE, par->p_pos.y * SIZE);
 		index += 8 * dir;

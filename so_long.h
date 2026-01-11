@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/10 15:32:04 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 00:05:30 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 
 # include <stddef.h>
 
+// Defines are HARD CODED. DO NOT TOUCH
+
+// Determines pixel size.
 # define SIZE 40
+
+// Determines how many frames it takes to move.
+# define FRAMES 10
 
 typedef struct coordinates
 {
@@ -42,6 +48,7 @@ typedef struct parameters
 	int				cols;
 	int				redraw;
 	unsigned char	p_rot;
+	t_img			*a_img;
 	t_img			*p_img;
 	t_img			*w_img;
 	t_img			*s_img;
@@ -77,5 +84,8 @@ void	end_program(t_pars *par, int code);
 
 // from player_rotation.c
 void	player_rotation(t_pars *par, unsigned char move_no);
+
+// from player_movement.c
+void	move(unsigned char move_no, t_pars *par);
 
 #endif
