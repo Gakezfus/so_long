@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 19:06:58 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/12 22:29:11 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stddef.h>
 
 // Defines are HARD CODED. DO NOT TOUCH
+
+# define BONUS 0
 
 // Determines pixel size.
 # define SIZE 40
@@ -79,7 +81,6 @@ void	check_end(t_pars *par);
 void	draw_and_set_pos(t_pars *par, char c, int x, int y);
 
 // from mlx_utlis_2.c
-void	config_steps(t_pars *par);
 void	delay(long miliseconds, t_pars *par);
 void	end_program(t_pars *par, int code);
 
@@ -88,5 +89,8 @@ void	player_rotation(t_pars *par, unsigned char move_no);
 
 // from player_movement.c
 void	move(unsigned char move_no, t_pars *par);
+
+// from config_steps.h or config_steps_bonus.h
+void	config_steps(t_pars *par, int step);
 
 #endif

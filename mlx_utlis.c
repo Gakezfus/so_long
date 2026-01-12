@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utlis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 18:34:50 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/12 22:31:08 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ void	move_player(t_pars *par, unsigned char move_no)
 		par->map[par->p_pos.y][par->p_pos.x] = '0';
 		move(move_no, par);
 		set_pos(&(par->p_pos), new.x, new.y);
-		par->steps++;
-		config_steps(par);
+		config_steps(par, 1);
 	}
 }
 

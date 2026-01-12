@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 18:39:17 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/12 22:31:12 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ void	setup(t_pars *par, int cols)
 			"./textures/cols.xpm", &par->p_img->x, &par->p_img->y);
 	par->e_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
 			"./textures/exit.xpm", &par->p_img->x, &par->p_img->y);
-	ft_strlcpy(par->steps_str, "steps: ", 8);
+	ft_strlcpy(par->steps_str, "moves: ", 8);
 	initial_window_colouring(par, -1, -1);
-	if (BONUS)
-		config_steps(par);
+	config_steps(par, 0);
 }
 
 int	redraw(void *p_ptr)
@@ -108,8 +107,7 @@ int	redraw(void *p_ptr)
 	par = (t_pars *)p_ptr;
 	par->redraw = 1;
 	redraw_window(par, -1, -1);
-	if (BONUS)
-		config_steps(par);
+	config_steps(par, 0);
 	return (0);
 }
 

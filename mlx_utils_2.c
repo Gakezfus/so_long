@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 01:48:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 18:39:41 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/12 22:17:31 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-void	config_steps(t_pars *par);
 void	delay(long miliseconds, t_pars *par);
 void	end_program(t_pars *par, int code);
-
-void	config_steps(t_pars *par)
-{
-	char	*num;
-
-	if (BONUS)
-	{
-		num = ft_itoa(par->steps);
-		if (num == NULL)
-			end_program(par, 1);
-		ft_strlcpy(par->steps_str + 7, num, 11);
-		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-			(par->width / 2 - 1) * SIZE, 0);
-		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-			(par->width / 2) * SIZE, 0);
-		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-			(par->width / 2 + 1) * SIZE, 0);
-		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-			(par->width / 2 + 2) * SIZE, 0);
-		mlx_string_put(par->mlx, par->wind, par->width * SIZE / 2 - 28,
-			23, 0x00FFFF00, par->steps_str);
-		free(num);
-	}
-	else
-		ft_printf("Steps: %i\n", par->steps);
-}
 
 void	delay(long miliseconds, t_pars *par)
 {
