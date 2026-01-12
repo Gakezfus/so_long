@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_rotation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 15:26:18 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 00:01:56 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 16:51:09 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	calc_dir(unsigned char og, unsigned char new)
 
 void	get_filename(char *filename, int num)
 {
-	ft_strlcpy(filename, "./images/player/player_r00.xpm", 31);
-	filename[24] = num / 10 + '0';
-	filename[25] = num % 10 + '0';
+	ft_strlcpy(filename, "./textures/player/player_r00.xpm", 33);
+	filename[26] = num / 10 + '0';
+	filename[27] = num % 10 + '0';
 }

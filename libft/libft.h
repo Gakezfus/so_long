@@ -94,6 +94,7 @@ int				read_fd(char **buf, size_t *len, int *newline_index, int fd);
 int				store_leftover(char **buf, size_t len,
 					int newline_index, char **leftover);
 int				ft_newline(char *str, int i);
+void			ft_gnl_strlcpy(char *dst, const char *src, size_t size);
 
 // OWN FUNCTIONS
 

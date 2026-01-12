@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 11:49:19 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 19:06:58 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct parameters
 	t_img			*c_img;
 	t_img			*e_img;
 	t_pos			p_pos;
+	t_pos			e_pos;
 }	t_pars;
 
 // from check_path.c
@@ -74,6 +75,8 @@ int		open_window(char **map, int width, int height, int cols);
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
 void	move_player(t_pars *par, unsigned char move_no);
+void	check_end(t_pars *par);
+void	draw_and_set_pos(t_pars *par, char c, int x, int y);
 
 // from mlx_utlis_2.c
 void	config_steps(t_pars *par);

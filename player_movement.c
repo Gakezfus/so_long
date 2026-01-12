@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 17:37:31 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 01:13:21 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 16:48:31 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	move(unsigned char move_no, t_pars *par)
 		mlx_destroy_image(par->mlx, par->a_img->img_ptr);
 	if (move_no == 0 || move_no == 2)
 		par->a_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-				"./images/space_vert.xpm", &par->a_img->x, &par->a_img->y);
+				"./textures/space_vert.xpm", &par->a_img->x, &par->a_img->y);
 	else
 		par->a_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-				"./images/space_horiz.xpm", &par->a_img->x, &par->a_img->y);
+				"./textures/space_horiz.xpm", &par->a_img->x, &par->a_img->y);
 	while (++index < FRAMES)
 	{
 		draw_frame(move_no, par, index);

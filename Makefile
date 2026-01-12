@@ -7,18 +7,30 @@ NAME = so_long
 
 LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Imlx -g
+MLX = minilibx-linux/libmlx.a
+
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -g
+
+BONUS:= 0
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT) so_long.h
-	cc $(OBJECTS) $(CFLAGS) $(LIBFT) -L./mlx -lmlx -lXext -lX11 -o $(NAME)
+$(NAME): $(MLX) $(OBJECTS) $(LIBFT) so_long.h
+	cc $(OBJECTS) $(CFLAGS) $(LIBFT) $(MLX) -lXext -lX11 -o $(NAME)
+
+bonus: BONUS:= 1 $(NAME)
 
 $(LIBFT):
 	make -C libft
 
+$(MLX):
+	wget https://cdn.intra.42.fr/document/document/39937/minilibx-linux.tgz
+	tar -xzf minilibx-linux.tgz
+	rm -f minilibx-linux.tgz
+	make -C minilibx-linux
+
 %.o: %.c
-	cc $(CFLAGS) -c $< -o $@
+	cc $(CFLAGS) -D BONUS=$(BONUS) -c $< -o $@
 
 -include $(SRC:%.c=%.d)
 
@@ -29,8 +41,8 @@ clean:
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
 	rm -f $(SOURCES:%.c=%.d)
-	rm -f $(BONUS_SOURCES:%.c=%.d)
 	make fclean -C libft
+	make clean -C minilibx-linux
 
 re: fclean all
 

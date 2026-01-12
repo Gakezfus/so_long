@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 01:48:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 11:57:14 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 18:39:41 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,26 @@ void	config_steps(t_pars *par)
 {
 	char	*num;
 
-	num = ft_itoa(par->steps);
-	if (num == NULL)
-		end_program(par, 1);
-	ft_strlcpy(par->steps_str + 7, num, 11);
-	free(num);
-	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-		(par->width / 2 - 1) * SIZE, 0);
-	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-		(par->width / 2) * SIZE, 0);
-	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-		(par->width / 2 + 1) * SIZE, 0);
-	mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
-		(par->width / 2 + 2) * SIZE, 0);
-	mlx_string_put(par->mlx, par->wind, par->width * SIZE / 2 - 28,
-		23, 0x00FFFF00, par->steps_str);
+	if (BONUS)
+	{
+		num = ft_itoa(par->steps);
+		if (num == NULL)
+			end_program(par, 1);
+		ft_strlcpy(par->steps_str + 7, num, 11);
+		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+			(par->width / 2 - 1) * SIZE, 0);
+		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+			(par->width / 2) * SIZE, 0);
+		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+			(par->width / 2 + 1) * SIZE, 0);
+		mlx_put_image_to_window(par->mlx, par->wind, par->w_img->img_ptr,
+			(par->width / 2 + 2) * SIZE, 0);
+		mlx_string_put(par->mlx, par->wind, par->width * SIZE / 2 - 28,
+			23, 0x00FFFF00, par->steps_str);
+		free(num);
+	}
+	else
+		ft_printf("Steps: %i\n", par->steps);
 }
 
 void	delay(long miliseconds, t_pars *par)
@@ -71,7 +76,7 @@ void	end_program(t_pars *par, int code)
 	images[3] = par->c_img;
 	images[4] = par->e_img;
 	images[5] = par->a_img;
-	while (index < 5)
+	while (index < 6)
 	{
 		if (images[index]->img_ptr)
 		{
@@ -81,7 +86,10 @@ void	end_program(t_pars *par, int code)
 		index++;
 	}
 	ft_free_arrays((void **)par->map);
-	mlx_destroy_window(par->mlx, par->wind);
+	if (par->wind)
+		mlx_destroy_window(par->mlx, par->wind);
+	if (par->mlx)
+		mlx_destroy_display(par->mlx);
 	free(par->mlx);
 	free(par);
 	exit(code);

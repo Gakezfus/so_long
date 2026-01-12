@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 11:54:48 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 18:39:17 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ int		redraw(void *p_ptr);
 
 int	open_window(char **map, int width, int height, int cols)
 {
-	void	*mlx;
-	void	*window;
-	t_pars	*par;
+	void		*mlx;
+	static void	*window = NULL;
+	t_pars		*par;
 
 	mlx = mlx_init();
+	if (mlx == NULL)
+		return (1);
 	par = malloc(sizeof(t_pars));
-	if (mlx == NULL || par == NULL)
-		return (free(mlx), free(par), 1);
+	if (par == NULL)
+		return (mlx_destroy_display(mlx), free(mlx), 1);
 	par->mlx = mlx;
 	par->map = map;
 	par->width = width;
@@ -49,7 +51,7 @@ int	open_window(char **map, int width, int height, int cols)
 	window = mlx_new_window(mlx, width * SIZE,
 			height * SIZE, "Window");
 	if (window == NULL)
-		return (free(mlx), free(par), 1);
+		return (mlx_destroy_display(mlx), free(mlx), free(par), 1);
 	par->wind = window;
 	setup(par, cols);
 	mlx_key_hook(window, handle_keys, (void *)par);
@@ -84,18 +86,19 @@ void	setup(t_pars *par, int cols)
 		|| !par->c_img || !par->e_img || !par->a_img)
 		end_program(par, 1);
 	par->p_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./images/player/player_r24.xpm", &par->p_img->x, &par->p_img->y);
+			"./textures/player/player_r24.xpm", &par->p_img->x, &par->p_img->y);
 	par->s_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./images/space.xpm", &par->p_img->x, &par->p_img->y);
+			"./textures/space.xpm", &par->p_img->x, &par->p_img->y);
 	par->w_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./images/wall.xpm", &par->p_img->x, &par->p_img->y);
+			"./textures/wall.xpm", &par->p_img->x, &par->p_img->y);
 	par->c_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./images/cols.xpm", &par->p_img->x, &par->p_img->y);
+			"./textures/cols.xpm", &par->p_img->x, &par->p_img->y);
 	par->e_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./images/exit.xpm", &par->p_img->x, &par->p_img->y);
+			"./textures/exit.xpm", &par->p_img->x, &par->p_img->y);
 	ft_strlcpy(par->steps_str, "steps: ", 8);
 	initial_window_colouring(par, -1, -1);
-	config_steps(par);
+	if (BONUS)
+		config_steps(par);
 }
 
 int	redraw(void *p_ptr)
@@ -105,7 +108,8 @@ int	redraw(void *p_ptr)
 	par = (t_pars *)p_ptr;
 	par->redraw = 1;
 	redraw_window(par, -1, -1);
-	config_steps(par);
+	if (BONUS)
+		config_steps(par);
 	return (0);
 }
 
@@ -149,17 +153,12 @@ void	initial_window_colouring(t_pars *par, int x, int y)
 				mlx_put_image_to_window(par->mlx, par->wind,
 					par->w_img->img_ptr, x * SIZE, y * SIZE);
 			else if (par->map[y][x] == 'P')
-			{
-				set_pos(&(par->p_pos), x, y);
-				mlx_put_image_to_window(par->mlx, par->wind,
-					par->p_img->img_ptr, x * SIZE, y * SIZE);
-			}
+				draw_and_set_pos(par, 'P', x, y);
 			else if (par->map[y][x] == 'C')
 				mlx_put_image_to_window(par->mlx, par->wind,
 					par->c_img->img_ptr, x * SIZE, y * SIZE);
 			else if (par->map[y][x] == 'E')
-				mlx_put_image_to_window(par->mlx, par->wind,
-					par->e_img->img_ptr, x * SIZE, y * SIZE);
+				draw_and_set_pos(par, 'E', x, y);
 		}
 	}
 }

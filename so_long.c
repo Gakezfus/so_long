@@ -6,7 +6,7 @@
 /*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/12 14:13:58 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/12 19:06:47 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,22 @@ int	validate_map(char **map, size_t width, int cols);
 
 int	main(int argc, char *argv[])
 {
-	int		file_name_len;
+	int		filename_len;
 	char	**map;
 	int		fd;
 	int		index;
 	int		cols;
 
 	if (argc != 2)
-		return (1);
+		return (write(2, "format: ./so_long <map>\n", 24), 1);
 	fd = open(argv[1], O_RDONLY);
-	file_name_len = ft_strlen(argv[1]);
-	if (fd < 0 || file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4,
-			".ber", 4) || validate_input(fd, &map, &cols))
-	{
-		if (fd > 0)
-			close(fd);
-		return (1);
-	}
+	filename_len = ft_strlen(argv[1]);
+	if (fd < 0)
+		return (write(2, "file cannot be opened\n", 22), 1);
+	if (filename_len < 4 || ft_strncmp(argv[1] + filename_len - 4, ".ber", 4))
+		return (close(fd), write(2, "invalid file format\n", 20), 1);
+	if (validate_input(fd, &map, &cols))
+		return (close(fd), 1);
 	close(fd);
 	index = 0;
 	while (map[index])
@@ -63,6 +62,8 @@ int	validate_input(int fd, char ***map, int *cols)
 	if (line == NULL || map_str == NULL)
 		return (free(line), free(map_str), 1);
 	str_len = ft_map_len(line);
+	if (str_len > 48)
+		return(write(2, "Error\nMap too long\n", 19), 1);
 	while (line)
 	{
 		if (!(str_len == ft_map_len(line)))
@@ -119,6 +120,8 @@ int	validate_map(char **map, size_t width, int cols)
 		index++;
 	}
 	height = index;
+	if (height > 24)
+		return (write(2, "Error\nMap too tall\n", 19));
 	index = 0;
 	while (map[0][index])
 	{

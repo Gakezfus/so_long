@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utlis.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 11:49:21 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 18:34:50 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
 void	move_player(t_pars *par, unsigned char move_no);
+void	check_end(t_pars *par);
+void	draw_and_set_pos(t_pars *par, char c, int x, int y);
 
 int	handle_keys(int keycode, void *p_ptr)
 {
@@ -68,7 +70,10 @@ void	move_player(t_pars *par, unsigned char move_no)
 	else
 	{
 		if (par->map[new.y][new.x] == 'C')
+		{
 			par->cols--;
+			check_end(par);
+		}
 		if (par->map[new.y][new.x] == 'E')
 			end_program(par, 0);
 		par->map[new.y][new.x] = 'P';
@@ -77,5 +82,33 @@ void	move_player(t_pars *par, unsigned char move_no)
 		set_pos(&(par->p_pos), new.x, new.y);
 		par->steps++;
 		config_steps(par);
+	}
+}
+
+void	draw_and_set_pos(t_pars *par, char c, int x, int y)
+{
+	if (c == 'P')
+	{
+		set_pos(&(par->p_pos), x, y);
+		mlx_put_image_to_window(par->mlx, par->wind,
+			par->p_img->img_ptr, x * SIZE, y * SIZE);
+	}
+	else if (c == 'E')
+	{
+		set_pos(&(par->e_pos), x, y);
+		mlx_put_image_to_window(par->mlx, par->wind,
+			par->e_img->img_ptr, x * SIZE, y * SIZE);
+	}
+}
+
+void	check_end(t_pars *par)
+{
+	if (par->cols == 0)
+	{
+		mlx_destroy_image(par->mlx, par->e_img->img_ptr);
+		par->e_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
+			"./textures/exit_rdy.xpm", &par->e_img->x, &par->e_img->y);
+		mlx_put_image_to_window(par->mlx, par->wind, par->e_img->img_ptr,
+			par->e_pos.x * SIZE, par->e_pos.y * SIZE);
 	}
 }

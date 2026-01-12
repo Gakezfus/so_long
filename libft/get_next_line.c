@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#include "get_next_line.h"
+#include "libft.h"
 
 // int	main(void)
 // {
