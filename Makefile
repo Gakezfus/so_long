@@ -7,12 +7,12 @@ NAME = so_long
 
 LIBFT = libft/libft.a
 
-CFLAGS = -Wall -Wextra -Werror -Ilibft -I.mlx -g
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Imlx -g
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS) $(LIBFT) so_long.h
-	cc $(OBJECTS) $(CFLAGS) $(LIBFT) -L./.mlx -lmlx -lXext -lX11 -o $(NAME)
+	cc $(OBJECTS) $(CFLAGS) $(LIBFT) -L./mlx -lmlx -lXext -lX11 -o $(NAME)
 
 $(LIBFT):
 	make -C libft
