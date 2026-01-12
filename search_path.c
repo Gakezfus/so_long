@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 15:52:18 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/12 00:44:33 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 11:54:47 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ void	check_sides(char ***map, t_pos location,
 		item = (*map)[to_check->y][to_check->x];
 		if (item != '1')
 		{
-			if (item != 'E')
-				ft_lstadd_back(frontier, ft_lstnew(to_check));
 			if (item == 'E' || item == 'C')
 				(*to_find)--;
 			(*map)[to_check->y][to_check->x] = '1';
+			if (item != 'E')
+				ft_lstadd_back(frontier, ft_lstnew(to_check));
+			else
+				free(to_check);
 		}
 		else
 			free(to_check);

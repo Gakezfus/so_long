@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 00:22:51 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 11:49:21 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
-int		handle_mouse(int button, int x, int y, void *p_ptr);
 void	move_player(t_pars *par, unsigned char move_no);
-void	colour_square(int x, int y, t_pars *par, int colour);
 
 int	handle_keys(int keycode, void *p_ptr)
 {

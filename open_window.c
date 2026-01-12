@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 01:10:44 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 11:54:48 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	open_window(char **map, int width, int height, int cols)
 	mlx = mlx_init();
 	par = malloc(sizeof(t_pars));
 	if (mlx == NULL || par == NULL)
-		return (free(mlx), 1);
+		return (free(mlx), free(par), 1);
 	par->mlx = mlx;
 	par->map = map;
 	par->width = width;

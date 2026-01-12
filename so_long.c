@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/10 16:31:08 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 11:36:26 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int	main(int argc, char *argv[])
 		return (1);
 	fd = open(argv[1], O_RDONLY);
 	file_name_len = ft_strlen(argv[1]);
-	if (file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4, ".ber", 4)
-		|| validate_input(fd, &map, &cols))
-		return (close(fd), 1);
+	if (fd < 0 || file_name_len < 4 || ft_strncmp(argv[1] + file_name_len - 4,
+			".ber", 4) || validate_input(fd, &map, &cols))
+	{
+		if (fd > 0)
+			close(fd);
+		return (1);
+	}
 	close(fd);
 	index = 0;
 	while (map[index])

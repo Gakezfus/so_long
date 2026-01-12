@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 00:05:30 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/12 11:49:19 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ int		open_window(char **map, int width, int height, int cols);
 // from mlx_utils.c
 int		handle_keys(int keycode, void *p_ptr);
 int		close_window(void *p_ptr);
-int		handle_mouse(int button, int x, int y, void *p_ptr);
 void	move_player(t_pars *par, unsigned char move_no);
-void	colour_square(int x, int y, t_pars *par, int colour);
 
 // from mlx_utlis_2.c
 void	config_steps(t_pars *par);
