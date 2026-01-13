@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 22:11:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 22:33:53 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/13 10:51:14 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	config_steps(t_pars *par, int step)
 {
 	char	*num;
 
-	if (step)
+	if (step && par->steps < 2147483647)
 	{
 		par->steps++;
 	}
