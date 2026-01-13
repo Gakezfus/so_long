@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:14:53 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/13 10:55:39 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/13 16:59:02 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	check_end(t_pars *par)
 	{
 		mlx_destroy_image(par->mlx, par->e_img->img_ptr);
 		par->e_img->img_ptr = mlx_xpm_file_to_image(par->mlx,
-			"./textures/exit_rdy.xpm", &par->e_img->x, &par->e_img->y);
+				"./textures/exit_rdy.xpm", &par->e_img->x, &par->e_img->y);
 		mlx_put_image_to_window(par->mlx, par->wind, par->e_img->img_ptr,
 			par->e_pos.x * SIZE, par->e_pos.y * SIZE);
 	}

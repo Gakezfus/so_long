@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 17:23:52 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/13 16:55:42 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	check_path(char **og_map, int width, int height, int cols)
 
 t_pos	find_player(char **map, int width, int height)
 {
-	int	h_index;
-	int	w_index;
+	int		h_index;
+	int		w_index;
+	t_pos	to_return;
 
-	t_pos to_return ;
 	h_index = 0;
 	while (h_index < height)
 	{

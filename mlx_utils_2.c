@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 01:48:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 22:17:31 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/13 17:18:28 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ void	delay(long miliseconds, t_pars *par)
 
 void	end_program(t_pars *par, int code)
 {
-	t_img	*images[6];
-	int		index;
+	t_img		*images[6];
+	static int	index = 0;
 
-	index = 0;
 	images[0] = par->p_img;
 	images[1] = par->w_img;
 	images[2] = par->s_img;
@@ -51,12 +50,11 @@ void	end_program(t_pars *par, int code)
 	images[5] = par->a_img;
 	while (index < 6)
 	{
-		if (images[index]->img_ptr)
+		if (images[index] && images[index]->img_ptr)
 		{
 			mlx_destroy_image(par->mlx, images[index]->img_ptr);
 		}
-		free(images[index]);
-		index++;
+		free(images[index++]);
 	}
 	ft_free_arrays((void **)par->map);
 	if (par->wind)

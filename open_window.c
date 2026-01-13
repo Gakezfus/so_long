@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 12:25:03 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 22:31:12 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/13 17:18:31 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ void	setup(t_pars *par, int cols);
 void	initial_window_colouring(t_pars *par, int x, int y);
 void	redraw_window(t_pars *p_ptr, int x, int y);
 int		redraw(void *p_ptr);
-
-// int	main(void)
-// {
-// 	char	**map = {0};
-
-// 	open_window(map);
-// }
 
 int	open_window(char **map, int width, int height, int cols)
 {

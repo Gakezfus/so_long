@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
+/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/12 19:06:47 by Elkan Choo       ###   ########.fr       */
+/*   Updated: 2026/01/13 16:54:23 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,20 @@ int	main(int argc, char *argv[])
 
 int	validate_input(int fd, char ***map, int *cols)
 {
-	size_t	str_len;
+	size_t	s_len;
 	char	*line;
 	char	*map_str;
 
 	map_str = ft_calloc(1, sizeof(char));
 	line = get_next_line(fd);
 	if (line == NULL || map_str == NULL)
-		return (free(line), free(map_str), 1);
-	str_len = ft_map_len(line);
-	if (str_len > 48)
-		return(write(2, "Error\nMap too long\n", 19), 1);
+		return (free(line), free(map_str), write(2, "Error\nNo map\n", 13), 1);
+	s_len = ft_map_len(line);
+	if (s_len > 48)
+		return (write(2, "Error\nMap too long\n", 19), 1);
 	while (line)
 	{
-		if (!(str_len == ft_map_len(line)))
+		if (!(s_len == ft_map_len(line)))
 			return (free(line), free(map_str),
 				write(2, "Error\nMap not rectangle\n", 24), 1);
 		if (check_chars(line, 0, cols) || ft_merge_strings(&map_str, line))
@@ -75,8 +75,7 @@ int	validate_input(int fd, char ***map, int *cols)
 		line = get_next_line(fd);
 	}
 	*map = ft_split(map_str, '\n');
-	if (check_chars(line, 1, cols) || !map
-		|| validate_map(*map, str_len, *cols))
+	if (check_chars(line, 1, cols) || !map || validate_map(*map, s_len, *cols))
 		return (free(map_str), ft_free_arrays((void **)(*map)), 1);
 	return (free(map_str), 0);
 }
