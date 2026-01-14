@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 12:37:10 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/13 16:55:42 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:41:59 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "so_long.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 t_pos	find_player(char **map, int width, int height);
 
@@ -26,7 +27,10 @@ int	check_path(char **og_map, int width, int height, int cols)
 
 	dup_map = malloc((height + 1) * sizeof(char *));
 	if (dup_map == NULL)
-		return (1);
+	{
+		perror(NULL);
+		exit (1);
+	}
 	index = 0;
 	while (index < height)
 	{

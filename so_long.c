@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: Elkan Choo <echoo@42mail.sutd.edu.sg>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/01 19:09:26 by Elkan Choo        #+#    #+#             */
-/*   Updated: 2026/01/13 16:54:23 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/14 15:47:06 by Elkan Choo       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	main(int argc, char *argv[])
 	int		cols;
 
 	if (argc != 2)
-		return (write(2, "format: ./so_long <map>\n", 24), 1);
+		return (write(2, "Format: ./so_long <map>\n", 24), 1);
 	fd = open(argv[1], O_RDONLY);
 	filename_len = ft_strlen(argv[1]);
 	if (fd < 0)
-		return (write(2, "file cannot be opened\n", 22), 1);
+		return (perror(argv[1]), 1);
 	if (filename_len < 4 || ft_strncmp(argv[1] + filename_len - 4, ".ber", 4))
-		return (close(fd), write(2, "invalid file format\n", 20), 1);
+		return (close(fd), write(2, "Invalid file format\n", 20), 1);
 	if (validate_input(fd, &map, &cols))
 		return (close(fd), 1);
 	close(fd);
