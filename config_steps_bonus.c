@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 22:11:43 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/13 10:51:14 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/16 00:48:26 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	config_steps(t_pars *par, int step)
 {
 	char	*num;
 
-	if (step && par->steps < 2147483647)
+	if (step && par->steps < 4294967295)
 	{
 		par->steps++;
 	}
-	num = ft_itoa(par->steps);
+	num = ft_utoa(par->steps);
 	if (num == NULL)
 		end_program(par, 1);
 	ft_strlcpy(par->steps_str + 7, num, 11);

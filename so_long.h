@@ -6,7 +6,7 @@
 /*   By: elkan <elkan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 13:12:23 by elkan             #+#    #+#             */
-/*   Updated: 2026/01/12 22:29:11 by elkan            ###   ########.fr       */
+/*   Updated: 2026/01/16 00:46:53 by elkan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct parameters
 	char			**map;
 	int				width;
 	int				height;
-	int				steps;
+	unsigned int	steps;
 	char			steps_str[17];
 	int				cols;
 	int				redraw;
