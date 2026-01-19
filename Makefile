@@ -6,7 +6,7 @@
 #    By: elkan <elkan@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/12 21:52:11 by elkan             #+#    #+#              #
-#    Updated: 2026/01/16 00:12:11 by elkan            ###   ########.fr        #
+#    Updated: 2026/01/19 16:46:07 by elkan            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ $(MLX): minilibx-linux
 	make -C minilibx-linux
 
 minilibx-linux:
-	wget https://cdn.intra.42.fr/document/document/39937/minilibx-linux.tgz
+	wget https://cdn.intra.42.fr/document/document/44485/minilibx-linux.tgz
 	tar -xzf minilibx-linux.tgz
 	rm -f minilibx-linux.tgz
 
